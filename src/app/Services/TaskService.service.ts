@@ -2,15 +2,14 @@ import { Injectable } from '@angular/core';
 import {
   Firestore,
   collection,
-  doc,
   addDoc,
+  doc,
   getDoc,
   updateDoc,
   deleteDoc
 } from '@angular/fire/firestore';
 
 export interface Task {
-  id?: string;
   ownerId: string;
   title: string;
   completed: boolean;
@@ -18,55 +17,26 @@ export interface Task {
 
 @Injectable({ providedIn: 'root' })
 export class TaskTestService {
-  private tasksCol = collection(this.firestore, 'tasks');
+  private tasksCol = (userId: string) => collection(this.firestore, `users/${userId}/tasks`);
 
   constructor(private firestore: Firestore) {}
 
-  // Añade una tarea de prueba
-  async testAddTask(task: Task) {
-    try {
-      const ref = await addDoc(this.tasksCol, task);
-      console.log('✔️ Tarea añadida con ID:', ref.id);
-      return ref.id;
-    } catch (err) {
-      console.error('❌ Error al añadir tarea:', err);
-    }
+  async testAddTask(userId: string, task: Task) {
+    return addDoc(this.tasksCol(userId), task);
   }
 
-  // Lee la tarea de prueba por ID
-  async testGetTask(id: string) {
-    try {
-      const docRef = doc(this.firestore, 'tasks', id);
-      const snap = await getDoc(docRef);
-      if (snap.exists()) {
-        console.log('✔️ Tarea leída:', { id: snap.id, ...snap.data() });
-      } else {
-        console.warn('⚠️ No existe la tarea con ID:', id);
-      }
-    } catch (err) {
-      console.error('❌ Error al leer tarea:', err);
-    }
+  async testGetTask(userId: string, id: string) {
+    const ref = doc(this.firestore, `users/${userId}/tasks/${id}`);
+    return getDoc(ref);
   }
 
-  // Actualiza la tarea de prueba (marca como completada)
-  async testUpdateTask(id: string, changes: Partial<Task>) {
-    try {
-      const docRef = doc(this.firestore, 'tasks', id);
-      await updateDoc(docRef, changes);
-      console.log('✔️ Tarea actualizada:', id, changes);
-    } catch (err) {
-      console.error('❌ Error al actualizar tarea:', err);
-    }
+  async testUpdateTask(userId: string, id: string, changes: Partial<Task>) {
+    const ref = doc(this.firestore, `users/${userId}/tasks/${id}`);
+    return updateDoc(ref, changes);
   }
 
-  // Elimina la tarea de prueba
-  async testDeleteTask(id: string) {
-    try {
-      const docRef = doc(this.firestore, 'tasks', id);
-      await deleteDoc(docRef);
-      console.log('✔️ Tarea eliminada:', id);
-    } catch (err) {
-      console.error('❌ Error al eliminar tarea:', err);
-    }
+  async testDeleteTask(userId: string, id: string) {
+    const ref = doc(this.firestore, `users/${userId}/tasks/${id}`);
+    return deleteDoc(ref);
   }
 }
