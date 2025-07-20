@@ -8,7 +8,7 @@ import { IonApp, IonRouterOutlet } from '@ionic/angular/standalone';
 @Component({
   selector: 'app-root',
   standalone: true,
-  template: `<ion-app><ion-router-outlet></ion-router-outlet></ion-app>`,
+  templateUrl: 'app.component.html',
   imports: [IonApp, IonRouterOutlet]
 })
 export class AppComponent implements OnInit { constructor(
@@ -19,7 +19,7 @@ export class AppComponent implements OnInit { constructor(
   async ngOnInit(): Promise<void> {
     try {
       // 1) Registro de usuario de prueba
-      const signupRes = await this.authTest.testSignup('test@correo.com', '123456');
+      const signupRes = await this.authTest.testLogin('test@correo.com', '123456');
       const uid = signupRes.user.uid;
       console.log('Usuario creado, UID=', uid);
 
@@ -40,9 +40,9 @@ export class AppComponent implements OnInit { constructor(
       await this.taskTest.testUpdateTask(uid, addRes.id, { completed: true });
       console.log('Tarea marcada como completada');
 
-      // 5) Eliminar la tarea
-      await this.taskTest.testDeleteTask(uid, addRes.id);
-      console.log('Tarea eliminada');
+      // // 5) Eliminar la tarea
+      // await this.taskTest.testDeleteTask(uid, addRes.id);
+      // console.log('Tarea eliminada');
 
       // 6) Logout
       await this.authTest.testLogout();
