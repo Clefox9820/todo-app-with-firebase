@@ -1,56 +1,71 @@
 // src/app/app.component.ts
 import { Component, OnInit } from '@angular/core';
-import { environment } from '../environments/environment';
-import { AuthTestService } from './Services/auth-test.service';
-import { TaskTestService, Task } from './Services/TaskService.service';
 import { IonApp, IonRouterOutlet } from '@ionic/angular/standalone';
+import { AuthService } from './Services/auth.service';
+import { TaskService } from './Services/task.service';
 
 @Component({
   selector: 'app-root',
   standalone: true,
+  imports: [IonApp, IonRouterOutlet],
   templateUrl: 'app.component.html',
-  imports: [IonApp, IonRouterOutlet]
 })
-export class AppComponent implements OnInit { constructor(
-    private authTest: AuthTestService,
-    private taskTest: TaskTestService
+export class AppComponent implements OnInit {
+  constructor(
+    private auth: AuthService,
+    private task: TaskService
   ) {}
 
   async ngOnInit(): Promise<void> {
+    const email = 'test@correo.com';
+    const password = '123456';
+    let userCred;
+
     try {
-      // 1) Registro de usuario de prueba
-      const signupRes = await this.authTest.testLogin('test@correo.com', '123456');
-      const uid = signupRes.user.uid;
-      console.log('Usuario creado, UID=', uid);
+      // Intentamos login primero
+      userCred = await this.auth.login(email, password);
+      console.log('✔️ Login exitoso, UID =', userCred.user.uid);
+    } catch (err: any) {
+      if (err.message.includes('No existe cuenta')) {
+        // Si no existe, creamos
+        console.log('⚠️ Usuario no existe, registrando...');
+        userCred = await this.auth.signup(email, password);
+        console.log('✔️ Usuario creado, UID =', userCred.user.uid);
+      } else {
+        console.error('❌ Error en AuthService:', err.message);
+        return;
+      }
+    }
 
-      // 2) Crear tarea de prueba
-      const taskData: Task = {
+    const uid = userCred.user.uid;
+
+    try {
+      // 2) Crear una tarea de prueba
+      const taskId = await this.task.addTask({
         ownerId: uid,
-        title: '¡Hola Firestore!',
+        title: '¡Hola Firestorepepe!',
         completed: false
-      };
-      const addRes = await this.taskTest.testAddTask(uid, taskData);
-      console.log('Tarea creada, ID=', addRes.id);
+      });
+      console.log('✔️ Tarea creada, ID =', taskId);
 
-      // 3) Leer la tarea
-      const getRes = await this.taskTest.testGetTask(uid, addRes.id);
-      console.log('Tarea leída:', { id: getRes.id, ...getRes.data() });
+      // 3) Obtener lista de tareas
+      const tasks = await this.task.getTasks().pipe().toPromise();
+      console.log('📋 Tareas actuales:', tasks);
 
-      // 4) Actualizar la tarea
-      await this.taskTest.testUpdateTask(uid, addRes.id, { completed: true });
-      console.log('Tarea marcada como completada');
+      // 4) Actualizar esa tarea
+      await this.task.updateTask(taskId, { completed: true });
+      console.log('✔️ Tarea marcada como completada');
 
-      // // 5) Eliminar la tarea
-      // await this.taskTest.testDeleteTask(uid, addRes.id);
-      // console.log('Tarea eliminada');
+      // 5) Opcional: borrar la tarea
+      // await this.task.deleteTask(taskId);
+      // console.log('✔️ Tarea eliminada');
 
-      // 6) Logout
-      await this.authTest.testLogout();
-      console.log('Logout exitoso');
-
-      console.log('✅ Prueba de Firebase completada');
     } catch (err) {
-      console.error('❌ Error durante la prueba de Firebase:', err);
+      console.error('❌ Error en TaskService:', err);
+    } finally {
+      await this.auth.logout();
+      console.log('✔️ Logout exitoso');
+      console.log('✅ Prueba de Firebase completada');
     }
   }
 }
