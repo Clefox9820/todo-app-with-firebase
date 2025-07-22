@@ -1,0 +1,42 @@
+   <form [formGroup]="signupForm" (ngSubmit)="onSubmit()">
+      <ion-list lines="full" inset>
+        <app-name-field
+          formControlName="name"
+          [control]="signupForm.get('name')">
+        </app-name-field>
+
+        <app-email-field
+          formControlName="email"
+          [control]="signupForm.get('email')">
+        </app-email-field>
+
+        <app-password-field
+          formControlName="password"
+          [control]="signupForm.get('password')">
+        </app-password-field>
+
+        <app-confirm-password-field
+          formControlName="confirmPassword"
+          [control]="signupForm.get('confirmPassword')">
+        </app-confirm-password-field>
+      </ion-list>
+
+      <div *ngIf="error" class="ion-text-center ion-text-danger ion-margin-top">
+        <ion-note color="danger">
+          {{ error }}
+        </ion-note>
+      </div>
+
+      <ion-button
+        expand="block"
+        class="ion-margin-top"
+        type="submit"
+        [disabled]="signupForm.invalid || isLoading">
+        <ion-spinner *ngIf="isLoading" name="crescent"></ion-spinner>
+        <span *ngIf="!isLoading">Crear Cuenta</span>
+      </ion-button>
+
+      <ion-button fill="clear" expand="block" routerLink="/login">
+        ¿Ya tienes cuenta? Inicia Sesión
+      </ion-button>
+    </form>
