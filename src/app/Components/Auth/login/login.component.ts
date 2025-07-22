@@ -3,7 +3,7 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { IonicModule } from '@ionic/angular';
 import { AuthService } from '../../../Services/auth.service';
-import { FormComponent, LoginFormData } from '../form/form.component';
+import { FormComponent, LoginFormData } from '../form/login/form.component';
 
 @Component({
   selector: 'app-login',

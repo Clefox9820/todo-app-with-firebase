@@ -1,0 +1,21 @@
+ion-list {
+  background: transparent;
+}
+
+ion-button {
+  --border-radius: 8px;
+  height: 45px;
+}
+
+ion-button[type="submit"] {
+  --background: var(--ion-color-primary);
+  font-weight: 600;
+}
+
+ion-note {
+  font-size: 14px;
+}
+
+.ion-margin-top {
+  margin-top: 20px;
+}

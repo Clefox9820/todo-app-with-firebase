@@ -1,8 +1,15 @@
 <!-- src/app/auth/login/login.component.html -->
+
+
+
 <ion-content fullscreen class="ion-padding">
-  <app-login-form
-    [error]="error"
-    [isLoading]="isLoading"
-    (formSubmit)="onLoginSubmit($event)">
+ <div class="login-container">
+    <div class="header-section ion-text-center ion-margin-bottom">
+      <ion-icon name="log-in-outline" size="large" color="primary"></ion-icon>
+      <h1>Iniciar Sesión</h1>
+      <p>Inicia sesión con tu cuenta</p>
+    </div>
+  </div>
+  <app-login-form [error]="error" [isLoading]="isLoading" (formSubmit)="onLoginSubmit($event)">
   </app-login-form>
 </ion-content>
