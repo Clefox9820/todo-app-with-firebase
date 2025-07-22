@@ -23,8 +23,8 @@ export interface LoginFormData {
     PasswordFieldComponent,
     RouterLink
   ],
-  templateUrl: './form.component.html',
-  styleUrls: ['./form.component.scss']
+  templateUrl: './login-form.component.html',
+  styleUrls: ['./login-form.component.scss']
 })
 export class FormComponent {
   @Input() error: string | null = null;

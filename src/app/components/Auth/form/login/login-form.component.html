@@ -23,7 +23,7 @@
         type="submit"
         [disabled]="loginForm.invalid || isLoading">
         <ion-spinner *ngIf="isLoading" name="crescent"></ion-spinner>
-        <span *ngIf="!isLoading">Iniciar Sesión</span>
+        <span *ngIf="!isLoading" routerLink="/home">Iniciar Sesión</span>
       </ion-button>
 
       <ion-button fill="clear" expand="block" routerLink="/signup">
