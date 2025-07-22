@@ -1,3 +1,42 @@
-<p>
-  login works!
-</p>
+<ion-content fullscreen class="ion-padding">
+  <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+    <ion-list lines="full" inset>
+      <ion-item>
+        <ion-label position="floating">Correo electrónico</ion-label>
+        <ion-input type="email" formControlName="email"></ion-input>
+      </ion-item>
+      <ion-note slot="error" color="danger"
+        *ngIf="loginForm.get('email')?.hasError('required') && loginForm.get('email')?.touched">
+        Email es obligatorio
+      </ion-note>
+      <ion-note slot="error" color="danger"
+        *ngIf="loginForm.get('email')?.hasError('email') && loginForm.get('email')?.touched">
+        Ingresa un correo válido
+      </ion-note>
+
+      <ion-item>
+        <ion-label position="floating">Contraseña</ion-label>
+        <ion-input type="password" formControlName="password"></ion-input>
+      </ion-item>
+      <ion-note slot="error" color="danger"
+        *ngIf="loginForm.get('password')?.hasError('required') && loginForm.get('password')?.touched">
+        Contraseña requerida
+      </ion-note>
+    </ion-list>
+
+    <div *ngIf="error" class="ion-text-center ion-text-danger ion-margin-top">
+      <ion-note color="danger">
+        Correo Electronico o Contraseña incorrectos
+
+      </ion-note>
+    </div>
+
+    <ion-button expand="block" class="ion-margin-top" type="submit" [disabled]="loginForm.invalid">
+      Iniciar Sesión
+    </ion-button>
+
+    <ion-button fill="clear" expand="block" routerLink="/signup">
+      ¿No tienes cuenta? Regístrate
+    </ion-button>
+  </form>
+</ion-content>
