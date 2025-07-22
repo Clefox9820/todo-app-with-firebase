@@ -2,8 +2,8 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { IonicModule } from '@ionic/angular';
-import { AuthService } from '../../../Services/auth.service';
-import { SignupFormComponent, SignupFormData } from '../form/signup/signup-form.component';
+import { AuthService } from '../../Services/auth.service';
+import { SignupFormComponent, SignupFormData } from '../../components/Auth/form/signup/signup-form.component';
 
 @Component({
   selector: 'app-signup',
