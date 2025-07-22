@@ -1,41 +1,34 @@
 // src/app/auth/login/login.component.ts
 import { Component } from '@angular/core';
-import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { IonicModule } from '@ionic/angular';
 import { AuthService } from '../../../Services/auth.service';
+import { FormComponent, LoginFormData } from '../form/form.component';
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [CommonModule, IonicModule, ReactiveFormsModule],
+  imports: [CommonModule, IonicModule, FormComponent],
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent {
-  loginForm: FormGroup;
   error: string | null = null;
+  isLoading: boolean = false;
 
-  constructor(
-    private fb: FormBuilder,
-    private authService: AuthService
-  ) {
-    this.loginForm = this.fb.group({
-      email: ['', [Validators.required, Validators.email]],
-      password: ['', Validators.required]
-    });
-  }
+  constructor(private authService: AuthService) {}
 
-  async onSubmit(): Promise<void> {
-    if (this.loginForm.invalid) return;
+  async onLoginSubmit(formData: LoginFormData): Promise<void> {
+    this.isLoading = true;
+    this.error = null;
 
-    const { email, password } = this.loginForm.value;
     try {
-      await this.authService.login(email, password);
-      this.error = null;
+      await this.authService.login(formData.email, formData.password);
       console.log('✅ Login exitoso');
     } catch (err: any) {
-      this.error = err.message || 'Error desconocido';
+      this.error = err.message || 'Correo Electronico o Contraseña incorrectos';
+    } finally {
+      this.isLoading = false;
     }
   }
 }
