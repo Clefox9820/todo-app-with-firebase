@@ -11,7 +11,7 @@ export class AuthService {
     this.user$ = user(this.auth);
   }
 
-  signup(email: string, password: string): Promise<UserCredential> {
+  async signup(name: string, email: string, password: string): Promise<any> {
     return createUserWithEmailAndPassword(this.auth, email, password)
       .catch(err => {
         if (err.code === 'auth/email-already-in-use') {
