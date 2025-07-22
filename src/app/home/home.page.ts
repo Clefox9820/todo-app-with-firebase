@@ -6,7 +6,7 @@ import { LoginComponent } from "../Components/Auth/login/login.component";
   selector: 'app-home',
   templateUrl: 'home.page.html',
   styleUrls: ['home.page.scss'],
-  imports: [IonHeader, IonToolbar, IonTitle, IonContent, LoginComponent],
+  imports: [IonHeader, IonToolbar, IonTitle, IonContent],
 })
 export class HomePage {
   constructor() {}
