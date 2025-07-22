@@ -1,8 +1,10 @@
-
-/* src/app/auth/fields/email-field/email-field.component.scss */
 ion-item {
   --inner-padding-bottom: 10px;
   --inner-padding-top: 10px;
+}
+
+ion-button {
+  --color: var(--ion-color-medium);
 }
 
 ion-note {
