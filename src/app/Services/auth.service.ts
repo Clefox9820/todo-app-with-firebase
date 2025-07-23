@@ -1,17 +1,23 @@
-import { Injectable } from '@angular/core';
-import { Auth, user, signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut, UserCredential, User } from '@angular/fire/auth';
+import { inject, Injectable } from '@angular/core';
+import { Auth, user, signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut, UserCredential, User, authState } from '@angular/fire/auth';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { Router } from '@angular/router';
+
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
-  user$: Observable<User | null>;
+  private auth = inject(Auth);
+  user$: Observable<User | null> = authState(this.auth);
+   private router = inject(Router);
 
-  constructor(private auth: Auth) {
+
+  constructor() {
     this.user$ = user(this.auth);
   }
 
-  signup(email: string, password: string): Promise<UserCredential> {
+
+  async signup(name: string, email: string, password: string): Promise<any> {
     return createUserWithEmailAndPassword(this.auth, email, password)
       .catch(err => {
         if (err.code === 'auth/email-already-in-use') {
@@ -33,10 +39,26 @@ export class AuthService {
       });
   }
 
-  logout(): Promise<void> {
-    return signOut(this.auth);
-  }
+  /**
+   * Cierra la sesión del usuario actual.
+   *
+   * @returns Una promesa que se resuelve cuando el usuario ha cerrado sesión.
+   */
 
+async logout(): Promise<void> {
+  try {
+    await signOut(this.auth);
+    localStorage.removeItem('redirectUrl');
+    this.router.navigateByUrl('/login');
+  } catch (err: any) {
+    console.error('Error en logout:', err);
+    throw new Error('No se pudo cerrar sesión. Intenta de nuevo.');
+  }
+}
+  /**
+   * Obtiene un Observable que emite true si el usuario está autenticado
+   * y false si no lo está.
+   */
   isAuthenticated(): Observable<boolean> {
     return this.user$.pipe(map(u => !!u));
   }

@@ -1,0 +1,16 @@
+<!-- src/app/auth/signup/signup.component.html -->
+<ion-content fullscreen class="ion-padding">
+  <div class="signup-container">
+    <div class="header-section ion-text-center ion-margin-bottom">
+      <ion-icon name="person-add-outline" size="large" color="primary"></ion-icon>
+      <h1>Crear Cuenta</h1>
+      <p>Únete a nuestra comunidad</p>
+    </div>
+
+    <app-signup-form
+      [error]="error"
+      [isLoading]="isLoading"
+      (formSubmit)="onSignupSubmit($event)">
+    </app-signup-form>
+  </div>
+</ion-content>
