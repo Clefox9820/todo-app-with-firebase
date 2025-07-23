@@ -10,7 +10,7 @@ import { AsyncPipe } from '@angular/common';
   selector: 'app-header',
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss'],
-  imports: [IonButtons, IonIcon, IonTitle, IonToolbar, IonHeader, IonButton, AsyncPipe],
+  imports: [IonButtons, IonIcon, IonTitle, IonToolbar, IonHeader, IonButton],
   standalone: true,
 })
 export class HeaderComponent implements OnInit {
@@ -27,7 +27,7 @@ export class HeaderComponent implements OnInit {
 
 
   ngOnInit() { }
-  
+
   async onLogout() {
     this.error = null;
     try {
