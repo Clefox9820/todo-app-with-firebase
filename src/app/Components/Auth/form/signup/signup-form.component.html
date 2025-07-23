@@ -31,9 +31,13 @@
         expand="block"
         class="ion-margin-top"
         type="submit"
-        [disabled]="signupForm.invalid || isLoading">
-        <ion-spinner *ngIf="isLoading" name="crescent"></ion-spinner>
-        <span *ngIf="!isLoading">Crear Cuenta</span>
+        [disabled]="signupForm.invalid || isLoading"
+        routerLink="/home">
+
+        @if (!isLoading) {
+          <ion-spinner *ngIf="isLoading" name="crescent"></ion-spinner>
+          <span>Crear cuenta</span>
+        }
       </ion-button>
 
       <ion-button fill="clear" expand="block" routerLink="/login">
