@@ -1,32 +1,25 @@
-    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
-      <ion-list lines="full" inset>
-        <app-email-field
-          formControlName="email"
-          [control]="loginForm.get('email')">
-        </app-email-field>
+<form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+  <ion-list lines="full" inset>
+    <app-email-field formControlName="email" [control]="loginForm.get('email')">
+    </app-email-field>
 
-        <app-password-field
-          formControlName="password"
-          [control]="loginForm.get('password')">
-        </app-password-field>
-      </ion-list>
+    <app-password-field formControlName="password" [control]="loginForm.get('password')">
+    </app-password-field>
+  </ion-list>
 
-      <div *ngIf="error" class="ion-text-center ion-text-danger ion-margin-top">
-        <ion-note color="danger">
-          {{ error }}
-        </ion-note>
-      </div>
+  <div *ngIf="error" class="ion-text-center ion-text-danger ion-margin-top">
+    <ion-note color="danger">
+      {{ error }}
+    </ion-note>
+  </div>
 
-      <ion-button
-        expand="block"
-        class="ion-margin-top"
-        type="submit"
-        [disabled]="loginForm.invalid || isLoading">
-        <ion-spinner *ngIf="isLoading" name="crescent"></ion-spinner>
-        <span *ngIf="!isLoading" routerLink="/home">Iniciar Sesión</span>
-      </ion-button>
+  <ion-button expand="block" type="submit" [disabled]="loginForm.invalid || isLoading">
+    <ion-spinner *ngIf="isLoading" name="crescent"></ion-spinner>
+    <span *ngIf="!isLoading">Iniciar Sesión</span>
+  </ion-button>
 
-      <ion-button fill="clear" expand="block" routerLink="/signup">
-        ¿No tienes cuenta? Regístrate
-      </ion-button>
-    </form>
+
+  <ion-button fill="clear" expand="block" routerLink="/signup">
+    ¿No tienes cuenta? Regístrate
+  </ion-button>
+</form>
