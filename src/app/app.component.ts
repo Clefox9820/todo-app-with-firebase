@@ -3,6 +3,9 @@ import { Component, OnInit } from '@angular/core';
 import { IonApp, IonRouterOutlet } from '@ionic/angular/standalone';
 import { AuthService } from './Services/auth.service';
 import { TaskService } from './Services/task.service';
+import { Auth } from '@angular/fire/auth';
+import { Router } from '@angular/router';
+import { first } from 'rxjs';
 
 @Component({
   selector: 'app-root',
@@ -13,10 +16,20 @@ import { TaskService } from './Services/task.service';
 export class AppComponent implements OnInit {
   constructor(
     private auth: AuthService,
-    private task: TaskService
-  ) {}
+    private task: TaskService,
+    private authState: Auth,
+    private router: Router
+  ) { }
 
-  ngOnInit() {
-
+ ngOnInit() {
+    this.auth.user$.pipe(first()).subscribe(user => {
+      if (user) {
+        this.router.navigateByUrl('/home');
+      } else {
+        this.router.navigateByUrl('/login');
+      }
+    });
   }
+
 }
+
