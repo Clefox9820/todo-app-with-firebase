@@ -3,6 +3,6 @@ export type TodoTask = {
     ownerId: string,
     title: string,
     description: string,
-    categories: string[],
+    categories: number[],
     done: boolean,
   };
