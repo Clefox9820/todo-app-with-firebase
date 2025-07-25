@@ -1,0 +1,14 @@
+.tag-container {
+  margin-top: 8px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+}
+
+ion-chip {
+  --border-radius: 12px;
+}
+.completed {
+  text-decoration: line-through;
+  color: var(--ion-color-medium);
+}

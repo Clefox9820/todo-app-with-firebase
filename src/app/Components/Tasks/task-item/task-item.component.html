@@ -1,3 +1,20 @@
-<p>
-  task-item works!
-</p>
+<ion-item lines="full" class="ion-no-padding">
+  <ion-grid class="ion-no-padding">
+    <ion-row class="ion-align-items-start">
+      <ion-col size="11">
+        <h2 [class.completed]="taskList.done">{{ taskList.title }}</h2>
+        <p>{{ taskList.description }}</p>
+        <div class="tag-container">
+          @for (tag of taskList.categories; track $index) {
+          <ion-chip color="secondary" outline>
+            <ion-label>{{ category[tag] }}</ion-label>
+          </ion-chip>
+          }
+        </div>
+      </ion-col>
+      <ion-col size="1" class="ion-text-end">
+        <ion-checkbox [checked]="taskList.done" (ionChange)="onToggleDone($event)"></ion-checkbox>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-item>
