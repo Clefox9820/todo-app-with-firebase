@@ -21,8 +21,11 @@ bootstrapApplication(AppComponent, {
     provideAuth(() => getAuth()),
     provideFirestore(() => getFirestore()),
 
-    // PROVEEDORES DE IONIC
-    provideIonicAngular(),
+    // PROVEEDORES DE IONIC con configuración específica
+    provideIonicAngular({
+      rippleEffect: true,
+      animated: true
+    }),
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ]
 }).catch(err => console.error(err));

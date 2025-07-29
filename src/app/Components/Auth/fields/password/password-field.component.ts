@@ -17,7 +17,7 @@ import { ReactiveFormsModule } from '@angular/forms';
     }
   ],
   template: `
-    <ion-item>
+    <ion-item disabled="false"  >
       <ion-label position="floating">Contraseña</ion-label>
       <ion-input
         [type]="showPassword ? 'text' : 'password'"

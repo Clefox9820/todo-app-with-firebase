@@ -6,6 +6,8 @@ import { TaskService } from './Services/task.service';
 import { Auth } from '@angular/fire/auth';
 import { Router } from '@angular/router';
 import { first } from 'rxjs';
+import { Platform } from '@ionic/angular/standalone';
+
 
 @Component({
   selector: 'app-root',
@@ -14,21 +16,26 @@ import { first } from 'rxjs';
   templateUrl: 'app.component.html',
 })
 export class AppComponent implements OnInit {
+
+  isReady = false;
+
   constructor(
     private auth: AuthService,
     private task: TaskService,
     private authState: Auth,
-    private router: Router
+    private router: Router,
+    private platform: Platform
   ) { }
 
- ngOnInit() {
+  async ngOnInit() {
     this.auth.user$.pipe(first()).subscribe(user => {
       if (user) {
-        this.router.navigateByUrl('/home');
-      } else {
         this.router.navigateByUrl('/login');
+      } else {
+        this.router.navigateByUrl('/home');
       }
     });
+
   }
 
 }

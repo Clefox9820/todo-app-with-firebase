@@ -17,7 +17,7 @@ import { ReactiveFormsModule } from '@angular/forms';
     }
   ],
   template: `
-    <ion-item>
+    <ion-item disabled="false">
       <ion-label position="floating">Correo electrónico</ion-label>
       <ion-input
         type="email"

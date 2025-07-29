@@ -35,3 +35,16 @@
 /* @import "@ionic/angular/css/palettes/dark.always.css"; */
 /* @import "@ionic/angular/css/palettes/dark.class.css"; */
 @import '@ionic/angular/css/palettes/dark.system.css';
+
+// src/global.scss
+ion-input {
+  --padding-start: 0;
+  --padding-end: 0;
+}
+
+// Forzar que los inputs estén "despiertos"
+ion-input input {
+  pointer-events: auto !important;
+  -webkit-user-select: text !important;
+  user-select: text !important;
+}

@@ -17,7 +17,7 @@ import { ReactiveFormsModule } from '@angular/forms';
     }
   ],
   template: `
-    <ion-item>
+    <ion-item disabled="false">
       <ion-label position="floating">Nombre completo</ion-label>
       <ion-input
         type="text"
