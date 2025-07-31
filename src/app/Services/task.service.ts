@@ -38,7 +38,7 @@ export class TaskService {
   }
 
   async addTask(task: Omit<Task, 'id'>): Promise<string> {
-    const u = await this.auth.currentUser;
+    const u = this.auth.currentUser;
     if (!u) throw new Error('No autenticado');
     const colRef = collection(this.firestore, `users/${u.uid}/tasks`) as CollectionReference<Task>;
     const ref = await addDoc(colRef, { ...task, ownerId: u.uid });
@@ -46,14 +46,14 @@ export class TaskService {
   }
 
   async updateTask(id: string, changes: Partial<Task>): Promise<void> {
-    const u = await this.auth.currentUser;
+    const u = this.auth.currentUser;
     if (!u) throw new Error('No autenticado');
     const docRef = doc(this.firestore, `users/${u.uid}/tasks/${id}`);
     await updateDoc(docRef, changes);
   }
 
   async deleteTask(id: string): Promise<void> {
-    const u = await this.auth.currentUser;
+    const u = this.auth.currentUser;
     if (!u) throw new Error('No autenticado');
     const docRef = doc(this.firestore, `users/${u.uid}/tasks/${id}`);
     await deleteDoc(docRef);
