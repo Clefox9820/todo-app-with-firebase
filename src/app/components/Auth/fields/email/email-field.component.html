@@ -1,0 +1,23 @@
+   <ion-item disabled="false">
+      <ion-label position="floating">Correo electrónico</ion-label>
+      <ion-input
+        type="email"
+        [value]="value"
+        (ionInput)="onInput($event)"
+        (ionBlur)="onBlur()">
+      </ion-input>
+    </ion-item>
+
+    <ion-note
+      slot="error"
+      color="danger"
+      *ngIf="control?.hasError('required') && control?.touched">
+      Email es obligatorio
+    </ion-note>
+
+    <ion-note
+      slot="error"
+      color="danger"
+      *ngIf="control?.hasError('email') && control?.touched">
+      Ingresa un correo válido
+    </ion-note>

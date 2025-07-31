@@ -1,14 +1,13 @@
-// src/app/auth/fields/email-field/email-field.component.ts
-import { Component, Input, Output, EventEmitter, forwardRef } from '@angular/core';
+import { Component, Input, forwardRef } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR, AbstractControl } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { IonicModule } from '@ionic/angular';
 import { ReactiveFormsModule } from '@angular/forms';
+import { IonItem, IonInput, IonLabel, IonNote } from "@ionic/angular/standalone";
 
 @Component({
   selector: 'app-email-field',
   standalone: true,
-  imports: [CommonModule, IonicModule, ReactiveFormsModule],
+  imports: [IonNote, IonLabel, IonInput, IonItem, CommonModule, ReactiveFormsModule, ],
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,
@@ -16,31 +15,7 @@ import { ReactiveFormsModule } from '@angular/forms';
       multi: true
     }
   ],
-  template: `
-    <ion-item disabled="false">
-      <ion-label position="floating">Correo electrónico</ion-label>
-      <ion-input
-        type="email"
-        [value]="value"
-        (ionInput)="onInput($event)"
-        (ionBlur)="onBlur()">
-      </ion-input>
-    </ion-item>
-
-    <ion-note
-      slot="error"
-      color="danger"
-      *ngIf="control?.hasError('required') && control?.touched">
-      Email es obligatorio
-    </ion-note>
-
-    <ion-note
-      slot="error"
-      color="danger"
-      *ngIf="control?.hasError('email') && control?.touched">
-      Ingresa un correo válido
-    </ion-note>
-  `,
+  templateUrl: './email-field.component.html',
   styleUrls: ['./email-field.component.scss']
 })
 export class EmailFieldComponent implements ControlValueAccessor {
@@ -48,8 +23,8 @@ export class EmailFieldComponent implements ControlValueAccessor {
 
   value: string = '';
 
-  private onChange = (value: string) => {};
-  private onTouched = () => {};
+  private onChange = (value: string) => { };
+  private onTouched = () => { };
 
   onInput(event: any): void {
     this.value = event.detail.value;
