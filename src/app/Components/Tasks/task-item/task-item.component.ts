@@ -1,28 +1,38 @@
-import { Component, Input, OnInit, Output } from '@angular/core';
+import { Component, input, output } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { IonLabel, IonItem, IonChip, IonCheckbox, IonRow, IonGrid, IonCol } from '@ionic/angular/standalone';
+import { CommonModule } from '@angular/common';
+import { IonLabel, IonItem, IonChip, IonCheckbox} from '@ionic/angular/standalone';
 import { TodoTask } from 'src/app/interfaces/task.interface';
+import { TaskFilterService } from 'src/app/Services/task-filter.service';
 
 @Component({
   selector: 'app-task-item',
   templateUrl: './task-item.component.html',
   styleUrls: ['./task-item.component.scss'],
-  imports: [IonCol, IonGrid, IonRow, IonItem, IonLabel, IonChip, FormsModule, IonCheckbox],
+  imports: [IonItem, IonLabel, IonChip, FormsModule, IonCheckbox, CommonModule],
   standalone: true,
 })
-export class TaskItemComponent implements OnInit {
-    category = ['Personal', 'Trabajo', 'Hogar', 'Otros'];
+export class TaskItemComponent {
+  // Input signal para la tarea
+  taskList = input.required<TodoTask>();
 
+  // Output para comunicar cambios al padre
+  taskChange = output<TodoTask>();
 
-  @Input() taskList: TodoTask = {} as TodoTask
-
+  constructor(public filterService: TaskFilterService) {}
 
   onToggleDone(event: any) {
-    this.taskList.done = event.detail.checked
+    const updatedTask = { ...this.taskList(), done: event.detail.checked };
+    this.taskChange.emit(updatedTask);
   }
 
-  constructor() { }
+  // Método para obtener el nombre de una categoría
+  getCategoryName(categoryId: number): string {
+    return this.filterService.getCategoryName(categoryId);
+  }
 
-  ngOnInit() { }
-
+  // Método para obtener el color de una categoría
+  getCategoryColor(categoryId: number): string {
+    return this.filterService.getCategoryColor(categoryId);
+  }
 }
