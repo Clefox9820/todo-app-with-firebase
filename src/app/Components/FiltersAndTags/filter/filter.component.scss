@@ -1,0 +1,78 @@
+/* Agrega estos estilos a tu filter.component.scss */
+
+.header-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.add-button {
+  --padding-start: 8px;
+  --padding-end: 8px;
+  margin: 0;
+
+  ion-icon {
+    color: var(--ion-color-primary);
+  }
+
+  &:hover {
+    --background: var(--ion-color-primary-tint);
+    --border-radius: 50%;
+  }
+}
+
+/* Estilos existentes que ya tienes */
+.categories-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 12px;
+}
+
+.category-chip {
+  cursor: pointer;
+  transition: all 0.2s ease;
+  position: relative;
+}
+
+.category-chip:hover {
+  transform: scale(1.05);
+}
+
+.edit-icon {
+  font-size: 14px;
+  margin-left: 4px;
+}
+
+.filter-actions {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 16px;
+}
+
+.section-title {
+  font-weight: 600;
+  margin-bottom: 8px;
+  color: var(--ion-color-dark);
+  font-size: 0.9em;
+}
+
+.filter-status {
+  margin-top: 12px;
+  padding: 8px;
+  background: var(--ion-color-light);
+  border-radius: 8px;
+}
+
+.selected-count, .search-term {
+  font-size: 0.9em;
+  color: var(--ion-color-medium);
+  margin: 2px 0;
+}
+
+.no-categories {
+  text-align: center;
+  padding: 20px;
+  color: var(--ion-color-medium);
+}

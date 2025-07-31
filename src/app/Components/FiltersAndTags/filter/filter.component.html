@@ -1,3 +1,52 @@
-<p>
-  filter works!
-</p>
+<ion-card>
+  <ion-card-header>
+    <div class="header-container">
+      <ion-card-title>Filtros</ion-card-title>
+      <ion-button fill="clear" (click)="showAddCategoryAlert()" class="add-button">
+        <ion-icon name="add" slot="icon-only" size="large"></ion-icon>
+      </ion-button>
+    </div>
+  </ion-card-header>
+
+  <ion-card-content>
+    <!-- Barra de búsqueda -->
+    <app-search-bar></app-search-bar>
+
+    <div class="filter-actions">
+      <ion-button fill="clear" size="small" (click)="clearAllFilters()" [disabled]="!filterService.hasActiveFilters()">
+        Limpiar Filtros
+      </ion-button>
+    </div>
+
+    <div class="section-title">Categorías</div>
+
+    <div class="categories-grid" *ngIf="filterService.categories().length > 0">
+      <ion-chip *ngFor="let category of filterService.categories()"
+        [color]="isSelected(category.id) ? 'primary' : category.color" (click)="toggleCategory(category.id)"
+        class="category-chip">
+        <ion-icon *ngIf="isSelected(category.id)" name="checkmark" slot="start">
+        </ion-icon>
+        {{ category.name }}
+        <ion-icon name="create" slot="end" (click)="editCategory($event, category)" class="edit-icon">
+        </ion-icon>
+      </ion-chip>
+    </div>
+
+    <!-- Estado de filtros activos -->
+    <div class="filter-status" *ngIf="filterService.hasActiveFilters()">
+      <div *ngIf="filterService.selectedCategories().length > 0" class="selected-count">
+        {{ filterService.selectedCategories().length }} categoría(s) seleccionada(s)
+      </div>
+      <div *ngIf="filterService.searchTerm()" class="search-term">
+        Buscando: "{{ filterService.searchTerm() }}"
+      </div>
+    </div>
+
+    <div class="no-categories" *ngIf="filterService.categories().length === 0">
+      <p>No hay categorías disponibles</p>
+      <ion-button (click)="showAddCategoryAlert()">
+        Crear primera categoría
+      </ion-button>
+    </div>
+  </ion-card-content>
+</ion-card>
