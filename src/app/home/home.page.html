@@ -1,6 +1,9 @@
-<app-header></app-header>
+<ion-header [translucent]="true">
+  <app-header></app-header>
+</ion-header>
 
 <ion-content [fullscreen]="true">
-  <app-search-bar></app-search-bar>
-  <app-filter></app-filter>
+
+  <app-category-filter></app-category-filter>
+  <app-task-list [tasks]="tasks()"></app-task-list>
 </ion-content>
