@@ -1,7 +1,32 @@
-<ion-list lines="none" inset>
-  <ion-item-group>
-    @for (task of taskList; track $index) {
-      <app-task-item [taskList]=task></app-task-item>
-    }
-  </ion-item-group>
-</ion-list>
+<div class="task-list-container">
+  <div class="list-header" *ngIf="filteredCount() > 0 || hasActiveFilters()">
+    <div class="task-count">
+      {{ filteredCount() }} de {{ totalTasks() }} tareas
+    </div>
+  </div>
+
+  <ion-list *ngIf="filteredTasks().length > 0; else noTasks">
+    <app-task-item
+      *ngFor="let task of filteredTasks()"
+      [taskList]="task"
+      (taskChange)="onTaskChange($event)">
+    </app-task-item>
+  </ion-list>
+
+  <ng-template #noTasks>
+    <div class="no-tasks">
+      <ion-icon name="clipboard-outline" size="large"></ion-icon>
+      <h3>No se encontraron tareas</h3>
+      <p *ngIf="hasActiveFilters()">
+        No hay tareas que coincidan con los filtros actuales.
+        <br>
+        <ion-button fill="clear" (click)="clearFilters()">
+          Limpiar filtros
+        </ion-button>
+      </p>
+      <p *ngIf="!hasActiveFilters()">
+        Aún no tienes tareas creadas.
+      </p>
+    </div>
+  </ng-template>
+</div>
