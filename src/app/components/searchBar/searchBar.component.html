@@ -1,2 +1,7 @@
-<ion-searchbar animated="true" placeholder="Buscar tarea" ></ion-searchbar>
-
+ <!-- Barra de búsqueda -->
+        <ion-searchbar
+          placeholder="Buscar tareas..."
+          [value]="filterService.searchTerm()"
+          (ionInput)="onSearchChange($event)"
+          show-clear-button="focus">
+        </ion-searchbar>

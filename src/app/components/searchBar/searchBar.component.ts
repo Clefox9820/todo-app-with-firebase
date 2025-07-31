@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { IonHeader, IonToolbar, IonTitle, IonContent, IonSearchbar } from '@ionic/angular/standalone';
+import { TaskFilterService } from 'src/app/Services/task-filter.service';
 
 @Component({
   selector: 'app-search-bar',
@@ -8,5 +9,9 @@ import { IonHeader, IonToolbar, IonTitle, IonContent, IonSearchbar } from '@ioni
   imports: [IonSearchbar],
 })
 export class searchBarComponent {
-  constructor() {}
+  constructor(public filterService: TaskFilterService) { }
+  onSearchChange(event: any): void {
+    const searchTerm = event.target.value || '';
+    this.filterService.updateSearchTerm(searchTerm);
+  }
 }
