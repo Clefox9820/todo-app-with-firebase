@@ -1,3 +1,6 @@
-<p>
-  task-list works!
-</p>
+<ion-list class="ion-padding-horizontal" lines="none">
+
+  @for (taskItem of taskList; track $index) {
+    <task-item [taskItem]="taskItem"></task-item>
+  }
+</ion-list>
