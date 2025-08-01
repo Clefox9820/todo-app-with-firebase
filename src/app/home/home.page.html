@@ -1,4 +1,28 @@
 <app-header></app-header>
 
 <ion-content [fullscreen]="true">
+
+  <filter></filter>
+
+  <task-list></task-list>
+
+  <ion-fab slot="fixed" vertical="bottom" horizontal="end">
+    <ion-fab-button>
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+
 </ion-content>
+
+<ion-footer>
+  <ion-toolbar>
+    <ion-button
+      expand="block"
+      color="danger"
+      shape="round"
+    >
+      BORRAR TAREAS COMPLETADAS
+      <ion-icon name="trash-outline" slot="end" size="large" aria-hidden="true"></ion-icon>
+    </ion-button>
+  </ion-toolbar>
+</ion-footer>
