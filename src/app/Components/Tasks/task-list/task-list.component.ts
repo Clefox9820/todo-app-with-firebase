@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, model, OnInit } from '@angular/core';
 import { IonList, IonItem } from "@ionic/angular/standalone";
 import { TodoTask } from 'src/app/interfaces/task.interface';
 import { TaskItemComponent } from "../task-item/task-item.component";
@@ -118,6 +118,7 @@ export class TaskListComponent implements OnInit {
     deleted: false
   }
   ]
+checked = model<boolean>(false);
 
   constructor() { }
 

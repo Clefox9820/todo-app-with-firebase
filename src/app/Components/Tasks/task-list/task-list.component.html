@@ -1,6 +1,6 @@
 <ion-list class="ion-padding-horizontal" lines="none">
-
   @for (taskItem of taskList; track $index) {
-    <task-item [taskItem]="taskItem"></task-item>
+    <task-item [taskItem]="taskItem" [(checked)]="checked"></task-item>
   }
+
 </ion-list>
