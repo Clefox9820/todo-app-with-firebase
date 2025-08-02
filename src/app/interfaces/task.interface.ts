@@ -1,3 +1,5 @@
+import { Timestamp } from "@angular/fire/firestore";
+
 export interface TodoTask {
   id: string;
   ownerId: string;
@@ -5,10 +7,9 @@ export interface TodoTask {
   description: string;
   category: number[];
   completed: boolean;
-  createdAt: Date;
-  deadline: Date;
-  updatedAt: Date;
-  deletedAt: Date;
+  createdAt: Timestamp;
+  deadline: Timestamp;
+  updatedAt: Timestamp;
+  deletedAt: Timestamp | null;
   deleted: boolean;
-
 }
