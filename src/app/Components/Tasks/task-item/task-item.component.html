@@ -30,7 +30,7 @@
     }
   </ion-label>
   <ion-item>
-    <ion-buttons slot="end" >
+    <ion-buttons slot="end">
       <ion-button slot="end" fill="clear" size="large" color="primary" class="ion-margin-start">
         <ion-icon name="create-outline"></ion-icon>
       </ion-button>
@@ -38,8 +38,10 @@
         <ion-icon name="trash-outline"></ion-icon>
       </ion-button>
 
-      <ion-checkbox slot="end" class="ion-margin-start"></ion-checkbox>
+      <ion-checkbox slot="end" class="ion-margin-start" color="primary" [checked]="checked()"
+        (ionChange)="onIndividualChange($event)"></ion-checkbox>
     </ion-buttons>
+    {{checkedItem()}}
   </ion-item>
 
 </ion-item>
