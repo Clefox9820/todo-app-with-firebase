@@ -1,3 +1,14 @@
-<p>
-  filter works!
-</p>
+<ion-list class="ion-padding-horizontal" lines="none">
+
+  <ion-searchbar placeholder="Buscar tarea" animated="true" mode="ios"></ion-searchbar>
+
+  <ion-item>
+    <ion-select slot="end" placeholder="Filtrar categorias de tareas" interface="modal" [multiple]="true">
+      <ion-select-option value="Trabajo">Trabajo</ion-select-option>
+      <ion-select-option value="Escuela">Escuela</ion-select-option>
+      <ion-select-option value="Hogar">Hogar</ion-select-option>
+    </ion-select>
+  </ion-item>
+  <br>
+  <checkbox-select-all [(checked)]="selectAll"></checkbox-select-all>
+</ion-list>

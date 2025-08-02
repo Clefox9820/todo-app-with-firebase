@@ -1,4 +1,31 @@
 <app-header></app-header>
 
 <ion-content [fullscreen]="true">
+
+  <filter [(selectAll)]="selectAll"></filter>
+
+  <task-list [(checked)]="selectAll"></task-list>
+
+  <ion-fab slot="fixed" vertical="bottom" horizontal="end">
+    <ion-fab-button>
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+
 </ion-content>
+
+<ion-footer>
+  <ion-toolbar>
+    @if (selectAll()) {
+    <ion-button expand="block" color="danger" shape="round">
+      BORRAR TODAS LAS TAREAS
+      <ion-icon name="trash-outline" slot="end" size="large"></ion-icon>
+    </ion-button>
+    } @else {
+    <ion-button expand="block" color="danger" shape="round" disabled="true">
+      BORRAR TAREAS COMPLETADAS
+      <ion-icon name="trash-outline" slot="end" size="large"></ion-icon>
+    </ion-button>
+    }
+  </ion-toolbar>
+</ion-footer>
