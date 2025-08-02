@@ -3,14 +3,13 @@
   <ion-searchbar placeholder="Buscar tarea" animated="true" mode="ios"></ion-searchbar>
 
   <ion-item>
-    <ion-select slot="end" placeholder="Filtrar categorias de tareas" interface="modal"
-      [multiple]="true">
+    <ion-select slot="end" placeholder="Filtrar categorias de tareas" interface="modal" [multiple]="true">
       <ion-select-option value="Trabajo">Trabajo</ion-select-option>
       <ion-select-option value="Escuela">Escuela</ion-select-option>
       <ion-select-option value="Hogar">Hogar</ion-select-option>
     </ion-select>
   </ion-item>
   <br>
-
-  <ion-checkbox labelPlacement="start" justify="end" checked="true" class="ion-margin-end" >Seleccionar todo</ion-checkbox>
+  <checkbox-select-all [(checked)]="selectAll"></checkbox-select-all>
+  <p>{{selectAll()}}</p>
 </ion-list>
