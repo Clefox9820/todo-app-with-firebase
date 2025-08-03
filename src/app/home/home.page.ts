@@ -11,9 +11,12 @@ import { TaskListComponent } from "../components/Tasks/task-list/task-list.compo
   imports: [IonIcon, IonFabButton, IonFab, IonFooter, IonCheckbox, IonContent, HeaderComponent, IonSearchbar, FilterComponent, IonHeader, IonToolbar, IonTitle, TaskListComponent, IonButton],
 })
 export class HomePage {
-  
-selectAll = model(false)
 
 
-  constructor() {}
+
+  selectAll = model(false)
+
+
+
+  constructor() { }
 }
