@@ -2,6 +2,7 @@
   <ion-label>
     <h2>{{ taskItem()?.title }}</h2>
     <p>{{ taskItem()?.description }}</p>
+    <p>{{ taskItem()?.category }}</p>
 
     @for (category of taskItem()?.category; track $index) {
     @switch (category) {
@@ -31,13 +32,16 @@
   </ion-label>
   <ion-item>
     <ion-buttons slot="end">
+      <!-- Boton de editar -->
       <ion-button slot="end" fill="clear" size="large" color="primary" class="ion-margin-start">
         <ion-icon name="create-outline"></ion-icon>
       </ion-button>
-      <ion-button slot="end" fill="clear" size="large" color="danger">
+      <!-- Boton de eliminar -->
+      <ion-button slot="end" fill="clear" size="large" color="danger" (click)="onDelete()">
         <ion-icon name="trash-outline"></ion-icon>
       </ion-button>
 
+      <!-- Checkbox -->
       <ion-checkbox slot="end" class="ion-margin-start" color="primary" [checked]="checked()"
         (ionChange)="onIndividualChange($event)"></ion-checkbox>
     </ion-buttons>
