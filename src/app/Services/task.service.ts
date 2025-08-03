@@ -10,10 +10,12 @@ import {
   query,
   where
 } from '@angular/fire/firestore';
-import { Auth } from '@angular/fire/auth';
-import { Observable, switchMap, filter } from 'rxjs';
+import { Auth, User } from '@angular/fire/auth';
+import { Observable, switchMap } from 'rxjs';
 import { TodoTask } from '../interfaces/task.interface';
 import { Timestamp } from '@firebase/firestore';
+import { AuthService } from './auth.service';
+
 
 @Injectable({
   providedIn: 'root'
@@ -21,24 +23,25 @@ import { Timestamp } from '@firebase/firestore';
 export class TaskService {
   private pendingDeletions = new Map<string, any>();
 
-  constructor(private firestore: Firestore, private auth: Auth) {}
+  constructor(private firestore: Firestore, private auth: Auth, private authService: AuthService) { }
 
   /**
    * Obtiene la lista de tareas activas (no borradas) del usuario autenticado
    */
   getTasks(): Observable<TodoTask[]> {
-    const currentUser = this.auth.currentUser;
-    if (!currentUser) {
-      throw new Error('No autenticado');
-    }
+    return this.authService.user$.pipe( // Usar authService en lugar de auth
+      switchMap((user: User | null) => {
+        if (!user) {
+          throw new Error('No autenticado');
+        }
 
-    const uid = currentUser.uid;
-    const colRef = collection(this.firestore, `users/${uid}/tasks`) as CollectionReference<TodoTask>;
+        const uid = user.uid;
+        const colRef = collection(this.firestore, `users/${uid}/tasks`) as CollectionReference<TodoTask>;
+        const q = query(colRef, where('deleted', '==', false));
 
-    // Solo obtener tareas que no estén borradas
-    const q = query(colRef, where('deleted', '==', false));
-
-    return collectionData(q, { idField: 'id' }) as Observable<TodoTask[]>;
+        return collectionData(q, { idField: 'id' }) as Observable<TodoTask[]>;
+      })
+    );
   }
 
   /**
